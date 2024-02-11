@@ -1,8 +1,9 @@
-FROM node:20.11.0-alpine
+# Stage 1: Build the Node.js application
+FROM node:20.11.0-alpine AS build
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm ci
 
@@ -10,25 +11,16 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 5173
-
-CMD [ "npm","run" , "preview"]
-
-
-# service for nginx
-
+# Stage 2: Serve the application with Nginx
 FROM nginx:1.23-alpine
 
 WORKDIR /usr/share/nginx/html
 
-RUN rm -rf *
+# Copy built files from the previous stage
+COPY --from=build /usr/src/app/dist .
 
-COPY --from=dist /usr/src/app/dist .
-
+# Expose port 80
 EXPOSE 80
 
-ENTRYPOINT [ "nginx", "-g" , "daemon off" ]
-
-
-
-
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
