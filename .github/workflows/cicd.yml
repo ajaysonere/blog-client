@@ -1,0 +1,33 @@
+name: Deploy react application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t ajaysonere/blog-client --build-arg REACT_APP_BASE_URL=`${{secrets.VITE_REACT_APP_BASE_URL}}` --build-arg VITE_REACT_APP_ASSETS_URL=`${{secrets.VITE_REACT_APP_ASSETS_URL}}` . 
+      - name: Publish image to docker hub
+        run: docker push ajaysonere/blog-client:latest
+        
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Give the permission to docker hub
+        run:  sudo chmod 666 /var/run/docker.sock
+      - name: Pull image from docker hub
+        run: docker pull ajaysonere/blog-client
+      - name: delete the old container
+        run: docker rm -f blog-client-container
+      - name: Run the docker image
+        run: docker run -d -p 5173:80 --name blog-client-container ajaysonere/blog-client
+    
