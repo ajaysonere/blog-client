@@ -18,6 +18,9 @@ const Register = () => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
+  
+  const url = `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/register`;
+  console.log(url);
 
   const handleRegister = async (e) => {
     e.preventDefault();
