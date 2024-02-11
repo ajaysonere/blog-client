@@ -14,7 +14,7 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build docker image
-        run: docker build -t ajaysonere/blog-client --build-arg REACT_APP_BASE_URL=`${{secrets.VITE_REACT_APP_BASE_URL}}` --build-arg VITE_REACT_APP_ASSETS_URL=`${{secrets.VITE_REACT_APP_ASSETS_URL}}` . 
+        run: docker build -t ajaysonere/blog-client . 
       - name: Publish image to docker hub
         run: docker push ajaysonere/blog-client:latest
         
@@ -29,5 +29,5 @@ jobs:
       - name: delete the old container
         run: docker rm -f blog-client-container
       - name: Run the docker image
-        run: docker run -d -p 5173:80 --name blog-client-container ajaysonere/blog-client
+        run: docker run -d -p 5173:80 --name blog-client-container -e REACT_APP_BASE_URL=`${{secrets.VITE_REACT_APP_BASE_URL}}` VITE_REACT_APP_ASSETS_URL=`${{secrets.VITE_REACT_APP_ASSETS_URL}}` ajaysonere/blog-client
     
