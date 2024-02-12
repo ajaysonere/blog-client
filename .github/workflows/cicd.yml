@@ -29,5 +29,5 @@ jobs:
       - name: delete the old container
         run: docker rm -f blog-client-container
       - name: Run the docker image
-        run: docker run -d -p 5173:80 --name blog-client-container -e REACT_APP_BASE_URL=`${{secrets.VITE_REACT_APP_BASE_URL}}` -e VITE_REACT_APP_ASSETS_URL=`${{secrets.VITE_REACT_APP_ASSETS_URL}}` ajaysonere/blog-client
+        run: docker run -d -p 5173:80 --name blog-client-container -e VITE_REACT_APP_BASE_URL=`${{secrets.VITE_REACT_APP_BASE_URL}}` -e VITE_REACT_APP_ASSETS_URL=`${{secrets.VITE_REACT_APP_ASSETS_URL}}` ajaysonere/blog-client
     
