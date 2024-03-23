@@ -23,7 +23,7 @@ const Login = () => {
      e.preventDefault();
      
      try {
-       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BASE_URL}/users/login`, userData);
+       const response = await axios.post(`/api/users/login`, userData);
        
        const user = await response.data;
        

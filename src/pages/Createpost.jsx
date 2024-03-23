@@ -75,7 +75,7 @@ const Createpost = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/posts`,
+        `/api/posts`,
         postData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );

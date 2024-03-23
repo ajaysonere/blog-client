@@ -16,7 +16,7 @@ const Authorpost = () => {
 
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/posts/users/${id}`
+          `/api/posts/users/${id}`
         );
 
         setPosts(response?.data);

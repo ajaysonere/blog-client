@@ -31,7 +31,7 @@ const Userprofile = () => {
       const postData = new FormData();
       postData.set("avatar", avatar);
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/change-avatar`,
+        `/api/users/change-avatar`,
         postData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
@@ -47,7 +47,7 @@ const Userprofile = () => {
           setLoading(true);
           try {
               const response = await axios.get(
-                `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${id}`
+                `/api/users/${id}`
               );
 
               const data = await response?.data;
@@ -73,7 +73,7 @@ const Userprofile = () => {
           userData.set("newPassword" , newPassword);
           userData.set("confirmPassword" , confirmPassword);
           
-          const response = await axios.patch(`${import.meta.env.VITE_REACT_APP_BASE_URL}/users/edit-user` , userData , {withCredentials: true , headers: {Authorization: `Bearer ${token}`}});
+          const response = await axios.patch(`/api/users/edit-user` , userData , {withCredentials: true , headers: {Authorization: `Bearer ${token}`}});
           
           if(response.status == 200){
              navigate("/logout");

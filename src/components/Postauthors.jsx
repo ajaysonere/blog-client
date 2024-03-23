@@ -20,7 +20,7 @@ const Postauthors = ({ creator, createdAt }) => {
     const getAuthor = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/users/${creator}`
+          `/api/users/${creator}`
         );
         setAuthor(response?.data);
       } catch (error) {

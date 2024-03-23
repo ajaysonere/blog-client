@@ -20,7 +20,7 @@ const Postdetails = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_BASE_URL}/posts/${id}`
+          `/api/posts/${id}`
         );
 
         setPost(response?.data);

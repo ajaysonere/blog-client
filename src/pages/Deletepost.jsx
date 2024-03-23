@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/userContext";
 import axios from "axios";
 import Loader from "../components/Loader";
 
+// eslint-disable-next-line react/prop-types
 const Deletepost = ({ postId: id }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +23,7 @@ const Deletepost = ({ postId: id }) => {
     setLoading(true);
        try {
          const response = await axios.delete(
-           `${import.meta.env.VITE_REACT_APP_BASE_URL}/posts/${id}`,
+           `/api/posts/${id}`,
            { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
          );
    
